@@ -3,1019 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>בחינת מחלות עיניים - שלב א' מועד 09.2024</title>
+  <title>תמונות בחינת עיניים - XX.20XX</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       background-color: #f5f5f5;
-      display: flex;
     }
     
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: #fff;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-      overflow-y: auto;
-      position: fixed;
-      right: 0;
-      top: 0;
-      z-index: 100;
-      padding: 15px 10px;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
     
-    .sidebar-title {
+    h1 {
       text-align: center;
-      font-weight: bold;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #ddd;
+      margin-bottom: 30px;
     }
     
-    .question-nav {
+    .gallery {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding-bottom: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
     
-    .nav-item {
-      text-align: center;
-      padding: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 15px;
-      background-color: white;
-      position: relative;
-    }
-    
-    .nav-item:hover {
-      background-color: #f0f0f0;
-    }
-    
-    .nav-item.active {
-      background-color: #4a90e2;
-      color: white;
-      border-color: #4a90e2;
-    }
-    
-    .nav-item.answered {
-      background-color: #e3f2fd;
-      border-color: #4a90e2;
-    }
-    
-    .main-content {
-      margin-right: 350px;
-      padding: 50px;
-      max-width: 800px;
-      margin-left: auto;
-    }
-    
-    .question-container {
+    .image-card {
       background-color: white;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      transition: transform 0.2s;
     }
     
-    .question-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    
-    .question-number {
-      font-weight: bold;
-      font-size: 1.2em;
+    .image-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     .image-container {
       text-align: center;
-      margin: 15px 0;
+      margin-bottom: 10px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .image-container img {
       max-width: 100%;
-      max-height: auto;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      max-height: 200px;
+      border: 1px solid #eee;
     }
     
-    .multiple-images-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 15px 0;
+    .image-info {
+      padding-top: 10px;
+      border-top: 1px solid #eee;
     }
     
-    .image-label {
-      text-align: center;
+    .filename {
       font-weight: bold;
       margin-bottom: 5px;
+      word-break: break-all;
     }
     
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .option {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: flex-start;
-    }
-    
-    .option:hover {
-      background-color: #f9f9f9;
-    }
-    
-    .option.selected {
-      border-color: #4a90e2;
-      background-color: #e3f2fd;
-    }
-    
-    .option.correct {
-      border-color: #4caf50;
-      background-color: #e8f5e9;
-    }
-    
-    .option.incorrect {
-      border-color: #f44336;
-      background-color: #ffebee;
-    }
-    
-    .option-label {
-      font-weight: bold;
-      margin-left: 10px;
-      min-width: 20px;
-    }
-    
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    
-    button {
-      padding: 8px 16px;
+    .download-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
       background-color: #4a90e2;
       color: white;
-      border: none;
+      text-decoration: none;
       border-radius: 4px;
-      cursor: pointer;
-      margin: 0 5px;
     }
     
-    button:hover {
-      background-color: #3f7fd1;
+    .download-link:hover {
+      background-color: #3a7bc8;
     }
     
-    button:disabled {
-      background-color: #ddd;
-      cursor: not-allowed;
-    }
-    
-    .score-container {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    
-    .score-title {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    
-    .mode-toggle {
-      margin-bottom: 20px;
-    }
-    
-    .finish-btn {
-      background-color: #4caf50;
-      font-weight: bold;
-      font-size: 1.1em;
-      padding: 10px 20px;
-    }
-    
-    .finish-btn:hover {
-      background-color: #3d8b40;
-    }
-    
-    .results-container {
-      display: none;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    
-    .results-title {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-    }
-    
-    .result-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-    }
-    
-    .result-item.correct {
-      background-color: #e8f5e9;
-      border-color: #4caf50;
-    }
-    
-    .result-item.incorrect {
-      background-color: #ffebee;
-      border-color: #f44336;
-    }
-    
-    .result-item.unanswered {
-      background-color: #f5f5f5;
-    }
-    
-    .result-number {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    
-    .result-answer {
-      font-size: 1.2em;
-    }
-    
-    .return-to-exam {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-    }
-    
-    .results-summary {
-      margin: 20px 0;
-      padding: 15px;
-      background-color: #f0f8ff;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 1.2em;
-    }
-    
-    .note-indicator {
-      position: absolute;
-      top: 3px;
-      right: 3px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: #ff9800;
-    }
-    
-    .study-notes-container {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #f0f8ff;
-      border-radius: 8px;
-      border: 1px solid #b0c4de;
-    }
-    
-    @media print {
-      .no-print {
-        display: none;
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
     }
     
-    @media screen and (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        padding: 10px 5px;
-        margin-bottom: 10px;
-      }
-      
-      .question-nav {
-        grid-template-columns: repeat(10, 1fr);
-        gap: 5px;
-      }
-      
-      .nav-item {
-        padding: 5px 0;
-        font-size: 12px;
-      }
-      
-      .main-content {
-        margin-right: 0;
-        padding: 15px;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      
-      .question-container {
-        padding: 15px;
-      }
-      
-      .image-container img {
-        max-width: 100%;
-        height: auto;
-      }
-      
-      .multiple-images-container {
-        flex-direction: column;
-      }
-      
-      .option {
-        padding: 8px;
-      }
-      
-      .option-label {
-        min-width: 15px;
-      }
-      
-      .controls {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
-      
-      .results-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
-      
-      #notes-sidebar {
-        width: 250px !important;
-      }
-      
-      #toggle-notes-btn {
-        font-size: 0.9em !important;
-        padding: 5px 10px !important;
-      }
-    }
-    
-    @media screen and (max-width: 480px) {
-      .question-nav {
-        grid-template-columns: repeat(5, 1fr);
-      }
-      
-      h1 {
-        font-size: 1.2em;
-      }
-      
-      .results-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    @media screen and (max-width: 390px) {
-      .main-content {
-        padding: 10px;
-      }
-      
-      .question-container {
-        padding: 10px;
-      }
-      
-      button {
-        padding: 6px 12px;
-        font-size: 0.9em;
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="sidebar no-print" id="sidebar">
-    <div class="sidebar-title">ניווט שאלות</div>
-    <div class="question-nav" id="question-nav">
-      <!-- Navigation buttons will be generated here -->
-    </div>
-  </div>
-  
-  <div class="main-content">
-    <h1>בחינת מחלות עיניים - שלב א' מועד 09.2024</h1>
+  <div class="container">
+    <h1>תמונות בחינת עיניים - XX.20XX</h1>
     
-    <div class="mode-toggle no-print">
-      <button id="exam-mode-btn" onclick="setMode('exam')" disabled>מצב בחינה</button>
-      <button id="study-mode-btn" onclick="setMode('study')">מצב למידה</button>
-      <button id="toggle-answers-btn" onclick="toggleAnswers()" style="display: none;">הצג תשובות</button>
-    </div>
-    
-    <div id="score-display" style="display: none;" class="score-container">
-      <div class="score-title">ציון</div>
-      <div id="score-text"></div>
-    </div>
-    
-    <div id="question-container" class="question-container">
-      <!-- Questions will be inserted here -->
-    </div>
-    
-    <div id="results-container" class="results-container">
-      <div class="results-title">סיכום תוצאות הבחינה</div>
-      <div class="results-summary" id="results-summary"></div>
-      <div class="results-grid" id="results-grid"></div>
-      <button class="return-to-exam no-print" id="return-btn" onclick="returnToExam()">חזרה לבחינה</button>
-      <button class="return-to-exam no-print" id="print-btn" onclick="window.print()">הדפס תוצאות</button>
-    </div>
-    
-    <div id="controls" class="controls no-print">
-      <button id="prev-btn" onclick="prevQuestion()" disabled>הקודם</button>
-      <div>
-        <span id="question-counter"></span>
-        <button id="finish-btn" onclick="showResults()" class="finish-btn" style="display: none;">סיים בחינה</button>
-      </div>
-      <button id="next-btn" onclick="nextQuestion()">הבא</button>
+    <div class="gallery" id="image-gallery">
+      <!-- Images will be generated here by JavaScript -->
     </div>
   </div>
   
   <script>
-    // Helper function to determine the current exam from URL
-    function getCurrentExam() {
-      // Extract exam identifier from URL path (e.g., /06-2020/ → 06-2020)
-      const pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0);
-      
-      // If we're in an exam directory, return its identifier
-      if (pathSegments.length > 0 && /^\d{2}-\d{4}$/.test(pathSegments[0])) {
-        return pathSegments[0];
-      } else if (pathSegments.length > 1 && /^\d{2}-\d{4}$/.test(pathSegments[1])) {
-        // Handle case where repo name is in the path, e.g. /ophthalmology-exam-system/06-2020/
-        return pathSegments[1];
-      }
-      
-      // If we're in the index, return null
-      return null;
-    }
-
-    // Standard image path builder function that works with existing image filenames
-    function buildImagePath(imageName) {
-      const currentExam = getCurrentExam();
-      if (!currentExam) {
-        console.error('Not in an exam context, cannot build image path');
-        return '';
-      }
-      
-      // Use the image name as-is, assuming it exists in the images folder
-      return `images/${imageName}`;
-    }
-    
-    // Object to store notes for each question
-    let questionNotes = {};
-    let questionReferences = {};
-    let notesVisible = false;
-    
-    // Variables to track state
-    let currentQuestionIndex = 0;
-    let selectedAnswers = {};
-    let showingAnswers = false;
-    let mode = 'exam';
-    
-    // Define the questions
-    const questions = [
-      // Replace with your actual questions for this exam
+    // List of image filenames
+    const imageFilenames = [
+      // Replace this array with your actual image filenames
       // Example:
-      /*
-      {
-        id: 1,
-        text: "שאלה...",
-        options: {
-          'א': "תשובה א",
-          'ב': "תשובה ב",
-          'ג': "תשובה ג",
-          'ד': "תשובה ד"
-        },
-        image: "your-existing-image-filename.jpg",  // Use your existing image filename
-        // For multiple images:
-        // multipleImages: true,
-        // images: ["image1.jpg", "image2.jpg"],
-        // imageLabels: ["תמונה 1", "תמונה 2"],
-        correctAnswer: "א"
-      }
-      */
+      // "1-1.jpg",
+      // "2-1.jpg",
+      // "2-2.jpg",
+      // ...etc
     ];
     
-    // Load notes from localStorage when the page loads
-    function loadNotes() {
-      // Create a more specific exam identifier based on the URL path
-      const examId = getCurrentExam();
+    // Function to generate the image gallery
+    function generateGallery() {
+      const gallery = document.getElementById('image-gallery');
       
-      // If there's no specific path, use the title as fallback
-      const finalExamId = examId || document.title.replace(/\s+/g, '-').toLowerCase();
-      
-      console.log(`Loading notes for exam: ${finalExamId}`);
-      
-      const savedNotes = localStorage.getItem(`examNotes-${finalExamId}`);
-      
-      if (savedNotes) {
-        try {
-          questionNotes = JSON.parse(savedNotes);
-        } catch (e) {
-          questionNotes = {};
-        }
-      } else {
-        questionNotes = {};
-      }
-    }
-
-    // Save notes to localStorage
-    function saveNotes() {
-      // Use the same identifier creation logic as in loadNotes
-      const examId = getCurrentExam();
-      const finalExamId = examId || document.title.replace(/\s+/g, '-').toLowerCase();
-      
-      localStorage.setItem(`examNotes-${finalExamId}`, JSON.stringify(questionNotes));
-      console.log(`Saving notes for exam: ${finalExamId}`);
-    }
-    
-    // Add the notes panel to the UI
-    function addNotesPanel() {
-      // Create notes toggle button at the top left
-      const toggleButton = document.createElement('button');
-      toggleButton.id = 'toggle-notes-btn';
-      toggleButton.textContent = 'פתח הערות';
-      toggleButton.style.position = 'fixed';
-      toggleButton.style.top = '10px';
-      toggleButton.style.left = '10px';
-      toggleButton.style.zIndex = '1000';
-      toggleButton.style.padding = '8px 16px';
-      toggleButton.style.backgroundColor = '#4a90e2';
-      toggleButton.style.color = 'white';
-      toggleButton.style.border = 'none';
-      toggleButton.style.borderRadius = '4px';
-      toggleButton.style.cursor = 'pointer';
-      toggleButton.style.fontFamily = 'Arial, sans-serif';
-      toggleButton.onclick = toggleNotes;
-      
-      // Create the notes sidebar
-      const notesSidebar = document.createElement('div');
-      notesSidebar.id = 'notes-sidebar';
-      notesSidebar.style.width = '300px';
-      notesSidebar.style.height = '100vh';
-      notesSidebar.style.position = 'fixed';
-      notesSidebar.style.top = '0';
-      notesSidebar.style.left = '0';
-      notesSidebar.style.backgroundColor = '#f8f8f8';
-      notesSidebar.style.boxShadow = '2px 0 5px rgba(0,0,0,0.1)';
-      notesSidebar.style.padding = '60px 20px 20px 20px';
-      notesSidebar.style.overflowY = 'auto';
-      notesSidebar.style.zIndex = '900';
-      notesSidebar.style.transform = 'translateX(-100%)';
-      notesSidebar.style.transition = 'transform 0.3s ease-in-out';
-      
-      // Create the notes title
-      const notesTitle = document.createElement('div');
-      notesTitle.textContent = 'הערות לשאלה';
-      notesTitle.style.fontWeight = 'bold';
-      notesTitle.style.fontSize = '1.2em';
-      notesTitle.style.marginBottom = '10px';
-      notesTitle.style.textAlign = 'center';
-      notesTitle.style.fontFamily = 'Arial, sans-serif';
-      notesSidebar.appendChild(notesTitle);
-      
-      // Create close button inside the sidebar
-      const closeButton = document.createElement('button');
-      closeButton.textContent = 'סגור';
-      closeButton.style.position = 'absolute';
-      closeButton.style.top = '15px';
-      closeButton.style.right = '15px';
-      closeButton.style.padding = '5px 10px';
-      closeButton.style.backgroundColor = '#e0e0e0';
-      closeButton.style.border = 'none';
-      closeButton.style.borderRadius = '4px';
-      closeButton.style.cursor = 'pointer';
-      closeButton.style.fontFamily = 'Arial, sans-serif';
-      closeButton.onclick = closeNotes;
-      notesSidebar.appendChild(closeButton);
-      
-      // Create the notes content div
-      const notesContent = document.createElement('div');
-      notesContent.id = 'notes-content';
-      notesSidebar.appendChild(notesContent);
-      
-      // Add elements to the body
-      document.body.appendChild(toggleButton);
-      document.body.appendChild(notesSidebar);
-    }
-    
-    // Toggle the notes panel visibility
-    function toggleNotes() {
-      const notesSidebar = document.getElementById('notes-sidebar');
-      const toggleButton = document.getElementById('toggle-notes-btn');
-      
-      if (notesVisible) {
-        closeNotes();
-      } else {
-        notesSidebar.style.transform = 'translateX(0)';
-        toggleButton.textContent = 'סגור הערות';
-        notesVisible = true;
-        updateNotesContent();
-      }
-    }
-    
-    // Close the notes panel
-    function closeNotes() {
-      const notesSidebar = document.getElementById('notes-sidebar');
-      const toggleButton = document.getElementById('toggle-notes-btn');
-      
-      notesSidebar.style.transform = 'translateX(-100%)';
-      toggleButton.textContent = 'פתח הערות';
-      notesVisible = false;
-    }
-    
-    // Update the notes content based on the current question
-    function updateNotesContent() {
-      if (!notesVisible) return;
-      
-      const notesContent = document.getElementById('notes-content');
-      const question = questions[currentQuestionIndex];
-      const questionId = question.id;
-      
-      // Clear previous content
-      notesContent.innerHTML = '';
-      
-      // Create the question number display
-      const questionNumber = document.createElement('div');
-      questionNumber.textContent = `שאלה ${questionId}`;
-      questionNumber.style.fontWeight = 'bold';
-      questionNumber.style.marginBottom = '10px';
-      questionNumber.style.textAlign = 'center';
-      questionNumber.style.fontFamily = 'Arial, sans-serif';
-      notesContent.appendChild(questionNumber);
-      
-      // Add reference information if available
-      if (questionReferences[questionId]) {
-        const referenceInfo = document.createElement('div');
-        referenceInfo.className = 'reference-info';
-        referenceInfo.textContent = questionReferences[questionId];
-        referenceInfo.style.backgroundColor = '#f0f8ff';
-        referenceInfo.style.padding = '8px';
-        referenceInfo.style.marginBottom = '10px';
-        referenceInfo.style.borderRadius = '4px';
-        referenceInfo.style.borderRight = '3px solid #4a90e2';
-        referenceInfo.style.fontFamily = 'Arial, sans-serif';
-        referenceInfo.style.fontSize = '0.9em';
-        referenceInfo.style.direction = 'rtl';
-        notesContent.appendChild(referenceInfo);
-      }
-      
-      // Create the notes textarea
-      const notesTextarea = document.createElement('textarea');
-      notesTextarea.id = `notes-${questionId}`;
-      notesTextarea.value = questionNotes[questionId] || '';
-      notesTextarea.placeholder = 'רשום את ההערות שלך כאן...';
-      notesTextarea.style.width = '100%';
-      notesTextarea.style.height = questionReferences[questionId] ? 'calc(100vh - 200px)' : 'calc(100vh - 150px)';
-      notesTextarea.style.padding = '10px';
-      notesTextarea.style.borderRadius = '4px';
-      notesTextarea.style.border = '1px solid #ddd';
-      notesTextarea.style.fontFamily = 'Arial, sans-serif';
-      notesTextarea.style.fontSize = '1em';
-      notesTextarea.style.direction = 'rtl';
-      notesTextarea.style.resize = 'none';
-      notesTextarea.style.boxSizing = 'border-box';
-      
-      // Add event listener to save notes when text changes
-      notesTextarea.addEventListener('input', function() {
-        questionNotes[questionId] = this.value;
-        saveNotes();
-        updateNavIndicators();
-      });
-      
-      notesContent.appendChild(notesTextarea);
-    }
-    
-    // Add notes to study mode
-    function addNotesToStudyMode() {
-      const questionContainers = document.querySelectorAll('.question-container');
-      questionContainers.forEach(container => {
-        const questionNumberElem = container.querySelector('.question-number');
-        if (questionNumberElem) {
-          const questionIdMatch = questionNumberElem.textContent.match(/\d+/);
-          if (questionIdMatch) {
-            const questionId = parseInt(questionIdMatch[0]);
-            const questionNoteText = questionNotes[questionId] || '';
-            
-            // Remove any existing notes container
-            const existingNotes = container.querySelector('.study-notes-container');
-            if (existingNotes) {
-              existingNotes.remove();
-            }
-            
-            // Only add notes container if there are notes or a reference exists
-            if (questionNoteText.trim() || questionReferences[questionId]) {
-              const notesContainer = document.createElement('div');
-              notesContainer.className = 'study-notes-container';
-              notesContainer.style.marginTop = '20px';
-              notesContainer.style.padding = '10px';
-              notesContainer.style.backgroundColor = '#f0f8ff';
-              notesContainer.style.borderRadius = '8px';
-              notesContainer.style.border = '1px solid #b0c4de';
-              
-              let notesHTML = '<div style="font-weight: bold; margin-bottom: 5px; font-family: Arial, sans-serif;">הערות אישיות:</div>';
-              
-              // Add reference if available
-              if (questionReferences[questionId]) {
-                notesHTML += `<div style="padding: 8px; margin-bottom: 10px; background-color: #e6f2ff; border-radius: 4px; border-right: 3px solid #4a90e2; font-family: Arial, sans-serif; font-size: 0.9em; direction: rtl;">${questionReferences[questionId]}</div>`;
-              }
-              
-              // Add user notes if available
-              if (questionNoteText.trim()) {
-                notesHTML += `<div style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; background-color: #fff; direction: rtl; white-space: pre-wrap; font-family: Arial, sans-serif;">${questionNoteText}</div>`;
-              }
-              
-              notesContainer.innerHTML = notesHTML;
-              container.appendChild(notesContainer);
-            }
-          }
-        }
+      imageFilenames.forEach(filename => {
+        const card = document.createElement('div');
+        card.className = 'image-card';
+        
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'image-container';
+        
+        const img = document.createElement('img');
+        img.src = `images/${filename}`;
+        img.alt = filename;
+        
+        const info = document.createElement('div');
+        info.className = 'image-info';
+        
+        const filenameDiv = document.createElement('div');
+        filenameDiv.className = 'filename';
+        filenameDiv.textContent = filename;
+        
+        const downloadLink = document.createElement('a');
+        downloadLink.href = `images/${filename}`;
+        downloadLink.className = 'download-link';
+        downloadLink.textContent = 'הורד';
+        downloadLink.download = filename;
+        
+        imageContainer.appendChild(img);
+        info.appendChild(filenameDiv);
+        info.appendChild(downloadLink);
+        
+        card.appendChild(imageContainer);
+        card.appendChild(info);
+        
+        gallery.appendChild(card);
       });
     }
     
-    // Add indicators to navigation buttons for questions with notes
-    function updateNavIndicators() {
-      const navItems = document.querySelectorAll('.nav-item');
-      
-      navItems.forEach((item, index) => {
-        const questionId = index + 1;
-        
-        // Remove any existing indicators
-        const existingIndicator = item.querySelector('.note-indicator');
-        if (existingIndicator) {
-          existingIndicator.remove();
-        }
-        
-        // Add indicator if there are notes for this question
-        if (questionNotes[questionId] && questionNotes[questionId].trim() !== '') {
-          const indicator = document.createElement('div');
-          indicator.className = 'note-indicator';
-          indicator.style.position = 'absolute';
-          indicator.style.top = '3px';
-          indicator.style.right = '3px';
-          indicator.style.width = '6px';
-          indicator.style.height = '6px';
-          indicator.style.borderRadius = '50%';
-          indicator.style.backgroundColor = '#ff9800';
-          
-          // Make sure the nav item has relative positioning for absolute positioning of the indicator
-          item.style.position = 'relative';
-          item.appendChild(indicator);
-        }
-      });
-    }
-    
-    // Create a page to display all notes for printing
-    function createPrintableNotesPage() {
-      // Create a new window for the printable notes
-      const printWindow = window.open('', '_blank');
-      const examId = getCurrentExam();
-      
-      // Write the HTML content for the printable page
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html dir="rtl">
-        <head>
-          <title>הערות לבחינה ${examId}</title>
-          <meta charset="UTF-8">
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              padding: 20px;
-              direction: rtl;
-            }
-            .notes-title {
-              text-align: center;
-              font-size: 24px;
-              margin-bottom: 30px;
-              font-weight: bold;
-            }
-            .question-notes {
-              margin-bottom: 20px;
-              padding: 15px;
-              border: 1px solid #ddd;
-              border-radius: 8px;
-              break-inside: avoid;
-            }
-            .question-number {
-              font-weight: bold;
-              margin-bottom: 10px;
-              font-size: 18px;
-              border-bottom: 1px solid #eee;
-              padding-bottom: 5px;
-            }
-            .reference-info {
-              padding: 8px;
-              margin-bottom: 10px;
-              background-color: #e6f2ff;
-              border-radius: 4px;
-              border-right: 3px solid #4a90e2;
-              font-size: 0.9em;
-            }
-            .notes-content {
-              white-space: pre-wrap;
-              padding: 10px;
-              background-color: #f9f9f9;
-              border-radius: 4px;
-              min-height: 40px;
-            }
-            @media print {
-              body {
-                font-size: 12pt;
-              }
-              .no-print {
-                display: none;
-              }
-              .question-notes {
-                page-break-inside: avoid;
-              }
-            }
-            .print-btn {
-              display: block;
-              margin: 20px auto;
-              padding: 10px 20px;
-              background-color: #4a90e2;
-              color: white;
-              border: none;
-              border-radius: 4px;
-              cursor: pointer;
-              font-size: 16px;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="notes-title">הערות לבחינה ${examId}</div>
-          <button class="print-btn no-print" onclick="window.print()">הדפס הערות</button>
-          <div id="notes-container"></div>
-          <button class="print-btn no-print" onclick="window.print()">הדפס הערות</button>
-        </body>
-        </html>
-      `);
-      
-      // Add all notes to the container
-      const notesContainer = printWindow.document.getElementById('notes-container');
-      let hasNotes = false;
-      
-      // Sort question IDs numerically
-      const questionIds = Object.keys(questionNotes)
-        .map(id => parseInt(id))
-        .filter(id => questionNotes[id]?.trim() || questionReferences[id])
-        .sort((a, b) => a - b);
-      
-      for (const questionId of questionIds) {
-        const noteText = questionNotes[questionId] || '';
-        hasNotes = true;
-        
-        const questionNotesDiv = printWindow.document.createElement('div');
-        questionNotesDiv.className = 'question-notes';
-        
-        const questionNumberDiv = printWindow.document.createElement('div');
-        questionNumberDiv.className = 'question-number';
-        questionNumberDiv.textContent = `שאלה ${questionId}`;
-        
-        questionNotesDiv.appendChild(questionNumberDiv);
-        
-        // Add reference if available
-        if (questionReferences[questionId]) {
-          const referenceDiv = printWindow.document.createElement('div');
-          referenceDiv.className = 'reference-info';
-          referenceDiv.textContent = questionReferences[questionId];
-          questionNotesDiv.appendChild(referenceDiv);
-        }
-        
-        // Add notes content if available
-        if (noteText.trim()) {
-          const notesContentDiv = printWindow.document.createElement('div');
-          notesContentDiv.className = 'notes-content';
-          notesContentDiv.textContent = noteText;
-          questionNotesDiv.appendChild(notesContentDiv);
-        }
-        
-        notesContainer.appendChild(questionNotesDiv);
-      }
-      
-      // If no notes exist, show a message
-      if (!hasNotes) {
-        const noNotesMessage = printWindow.document.createElement('div');
-        noNotesMessage.style.textAlign = 'center';
-        noNotesMessage.style.margin = '50px 0';
-        noNotesMessage.style.fontSize = '18px';
-        noNotesMessage.style.color = '#666';
-        noNotesMessage.textContent = 'אין הערות שמורות לבחינה זו';
-        notesContainer.appendChild(noNotesMessage);
-      }
-      
-      // Focus the new window
-      printWindow.focus();
-    }
-    
-    // Add print notes button to results page
-    function addPrintNotesButton() {
-      const resultsContainer = document.getElementById('results-container');
-      if (!resultsContainer) return;
-      
-      // Check if button already exists
-      if (document.getElementById('print-notes-btn')) return;
-      
-      const printNotesBtn = document.createElement('button');
-      printNotesBtn.id = 'print-notes-btn';
-      printNotesBtn.className = 'return-to-exam no-print';
-      printNotesBtn.textContent = 'הדפס הערות';
-      printNotesBtn.style.backgroundColor = '#4a90e2';
-      printNotesBtn.style.display = 'block';
-      printNotesBtn.style.margin = '20px auto';
-      printNotesBtn.onclick = createPrintableNotesPage;
-      
-      // Get the return button
-      const returnBtn = document.getElementById('return-btn');
-      const printBtn = document.getElementById('print-btn');
-      
-      if (returnBtn && printBtn) {
-        // Add it after the return button, before print button
-        resultsContainer.insertBefore(printNotesBtn, printBtn);
-      } else {
-        // Just append it if the other buttons aren't found
-        resultsContainer.appendChild(printNotesBtn);
-      }
-    }
-    
-    // Load references for the current exam
-    function loadReferences() {
-      const examId = getCurrentExam();
-      if (!examId) return;
-      
-      // Create URL for the references page - using relative paths to the current repository
-      const referencesUrl = `../${examId}-references.html`;
-      
-      // Fetch the references HTML
-      fetch(referencesUrl)
-        .then(response => {
-          if (!response.ok) {
-            console.warn(`Failed to fetch references (${response.status}), trying alternative path`);
-            // Try an alternative path (for development or if structure changes)
-            return fetch(`/${examId}-references.html`);
-          }
-          return response;
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Could not load references: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(html => {
-          // Create a temporary DOM element to parse the HTML
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          
-          // Get the references table
-          const table = doc.querySelector('table');
-          if (table) {
-            // Extract references from table rows
-            const rows = table.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-              const cells = row.querySelectorAll('td');
-              if (cells.length >= 3) {
-                const questionNumber = cells[0].textContent.trim();
-                const reference = cells[2].textContent.trim();
-                questionReferences[questionNumber] = reference;
-              }
-            });
-            
-            console.log('References loaded successfully:', Object.keys(questionReferences).length);
-            
-            // If notes panel is already visible, update it to show references
-            if (notesVisible) {
-              updateNotesContent();
-            }
-            
-            // Update study mode if active
-            if (mode === 'study') {
-              setTimeout(addNotesToStudyMode, 100);
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error loading references:', error);
-        });
+    // Load the gallery when the page loads
+    window.onload = generateGallery;
+  </script>
+</body>
+</html>
